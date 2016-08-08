@@ -1,0 +1,23 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/mneil/.nvm/versions/node/v4.4.7/bin/node',
+1 verbose cli   '/Users/mneil/.nvm/versions/node/v4.4.7/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'serve',
+1 verbose cli   '1337' ]
+2 info using npm@2.15.8
+3 info using node@v4.4.7
+4 verbose stack Error: missing script: serve
+4 verbose stack     at run (/Users/mneil/.nvm/versions/node/v4.4.7/lib/node_modules/npm/lib/run-script.js:142:19)
+4 verbose stack     at /Users/mneil/.nvm/versions/node/v4.4.7/lib/node_modules/npm/lib/run-script.js:58:5
+4 verbose stack     at /Users/mneil/.nvm/versions/node/v4.4.7/lib/node_modules/npm/node_modules/read-package-json/read-json.js:356:5
+4 verbose stack     at handleExists (/Users/mneil/.nvm/versions/node/v4.4.7/lib/node_modules/npm/node_modules/read-package-json/read-json.js:329:20)
+4 verbose stack     at FSReqWrap.cb [as oncomplete] (fs.js:212:19)
+5 verbose cwd /Users/mneil/Projects/murphy
+6 error Darwin 15.6.0
+7 error argv "/Users/mneil/.nvm/versions/node/v4.4.7/bin/node" "/Users/mneil/.nvm/versions/node/v4.4.7/bin/npm" "run" "serve" "1337"
+8 error node v4.4.7
+9 error npm  v2.15.8
+10 error missing script: serve
+11 error If you need help, you may report this error at:
+11 error     <https://github.com/npm/npm/issues>
+12 verbose exit [ 1, true ]
