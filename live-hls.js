@@ -723,10 +723,7 @@ live = function(request, response) {
 
     streampath = 'live' + request.path;
     event = extend(getStream(streampath), request.query);
-    console.log('request path:' + request.path);
-    renditionName = request.path.match(/.*\/(.+).m3u8/i);
-    console.log(renditionName);
-    renditionName = renditionName[1];
+    renditionName = request.path.match(/.*\/(.+).m3u8/i)[1];
     console.log('renditionName: ' + streampath);
     if (!event.sequenceOffsets[renditionName]) {
       event.sequenceOffsets[renditionName] = Math.floor(Math.random() * 50);
