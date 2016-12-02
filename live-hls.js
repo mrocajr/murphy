@@ -1,5 +1,5 @@
 /**
- * Routes that help simulate live HLS playlists.
+ * Routes that help simulate live HLS playlists
  */
 var fs = require('fs');
 var extend = require('lodash').extend;
