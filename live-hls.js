@@ -9,7 +9,7 @@ var express = require('express');
 var streams = {};
 var debug = 0;
 var defaults = {
-  // seconds per resource
+  // seconds per resource 
   rate: 10,
   // lines to initially return (This is obsolete)
   init: 4,
