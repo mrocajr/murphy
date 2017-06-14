@@ -421,12 +421,13 @@ ui = function(request, response) {
       return response.send(404, error);
     }
     result = data.toString();
+
     for (key in streams) {
       if (key.indexOf('.m3u8') >-1 ) {
         button = '<td><button onclick=\"injectError(\'../'+key.replace('live', 'error')+'?errorcode=1\')\">errortext</button></td>';
         rows += '<tr><td>' + key + '</td>'+
           button.replace('errorcode', 'tsnotfound').replace('errortext','ts404') +
-          button.replace('errorcode', 'manifestnotfound').replace('errortext','manifest404') + '</tr>\n';
+          button.replace('errorcode', 'manifestnotfound').replace('errortext','manifest404') + '<td><button onclick=\"resetAllStreams(\'../' + key + '?resetStream=1\')\">Reset</button></td>' + '</tr>\n';
       }
       if (key.indexOf('.ts') > -1 ||
           key.indexOf('.aac') > -1 ||
