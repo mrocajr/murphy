@@ -28,7 +28,7 @@ var defaults = {
   //counter (obsolete?)
   counter: 0,
   lastStartPosition: 0,
-  tsNotFound: 0,
+  tsnotfound: 0,
   manifestnotfound: 0,
   resetStream: 0,
   stopStream: 0,
@@ -443,7 +443,7 @@ const ui = function(request, response) {
       if (key.indexOf('.m3u8') >-1 ) {
         button = '<td><button onclick=\"injectError(\'../'+key.replace('live', 'error')+'?errorcode=1\')\">errortext</button></td>';
         rows += '<tr><td>' + key + '</td>'+
-          button.replace('errorcode', 'tsNotFound').replace('errortext','ts404') +
+          button.replace('errorcode', 'tsnotfound').replace('errortext','ts404') +
           button.replace('errorcode', 'manifestnotfound').replace('errortext','manifest404') + '</tr>\n';
       }
       if (/\.(ts|aac|m4s|mp4|vtt|webvtt)/i.test(key)) {
@@ -697,7 +697,7 @@ const redirectFunction = function(request, response) {
   redirectKey = 'redirect' + request.path;
   debuglog(redirectKey + ' - ' + redirect[redirectKey]);
   if (processErrors(request, response, event) == true) {
-    console.log('errors processed tsNotFound=' + event.tsNotFound);
+    console.log('errors processed tsnotfound=' + event.tsnotfound);
     return response;
   }
   response.writeHead(301,
@@ -722,7 +722,7 @@ const dataRequest = function(request, response) {
     pathname = request.originalUrl.toString();
   }
   if (processErrors(request, response, event) == true) {
-    console.log('errors processed tsNotFound=' + event.tsNotFound);
+    console.log('errors processed tsnotfound=' + event.tsnotfound);
     return response;
   }
   debuglog(path.join(__dirname, 'data', request.path));
@@ -734,14 +734,14 @@ const dataRequest = function(request, response) {
 };
 
 /**
-   processErrors simultes the tsNotFound and manifestnotfound errors and allows to reset or stop the streams.
+   processErrors simultes the tsnotfound and manifestnotfound errors and allows to reset or stop the streams.
 
  */
 
 
 const processErrors = function(request, response, event) {
-  if (event.tsNotFound > 0 && request.path.indexOf('.ts') > -1) {
-    event.tsNotFound--;
+  if (event.tsnotfound > 0 && request.path.indexOf('.ts') > -1) {
+    event.tsnotfound--;
     console.log('send ts 404');
     response.status(404).send('not found');
     return true;
@@ -782,7 +782,7 @@ const processErrors = function(request, response, event) {
 const injectError = function(request, response) {
   var streamname='live' + request.path;
   event = extend(getStream(streamname), request.query);
-  console.log('tsNotFound in ' + streamname + ' = ' + event.tsNotFound);
+  console.log('tsnotfound in ' + streamname + ' = ' + event.tsnotfound);
   return response.send(200, 'injected into ' + streamname);
 };
 
@@ -854,20 +854,20 @@ const getManifestObjects = function (request, response, body, streamtype, fullur
     stopAllStreams();
   }
 
-  if (event.tsNotFound > 0) {
+  if (event.tsnotfound > 0) {
     //Pick a future .ts file to inject 404
     tsstreampath = manifest[streampath].resources[event.lastStartPosition + event.window + 1].tsfile;
     tsstreampath = trimCharacters(tsstreampath, ['/', '.']);
     console.log('Target for 404: ' + tsstreampath);
     stream = getStream(tsstreampath);
     //Pass error value to the ts stream
-    if (stream.tsNotFound) {
-      stream.tsNotFound++;
+    if (stream.tsnotfound) {
+      stream.tsnotfound++;
     }
     else {
-      stream.tsNotFound = 1;
+      stream.tsnotfound = 1;
     }
-    event.tsNotFound--;
+    event.tsnotfound--;
   }
   if (event.manifestnotfound > 0) {
     if (processErrors(request, response, event) == true) {
